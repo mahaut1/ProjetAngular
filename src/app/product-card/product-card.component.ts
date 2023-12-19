@@ -1,43 +1,42 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import {Product} from '../models/product.models';
+import { NgIf } from '@angular/common';
+import { NgStyle } from '@angular/common';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [],
+  imports: [NgIf, NgStyle, CommonModule],
   template: `
     <p>
       product-card works!
     </p>
-    <h2> {{title}}</h2>
-    <img src= {{imageUrl}} width="100"/>
-    <p>{{description}}</p>
-    <p>{{price}} euros</p>
+    <h2> {{myProduct.title | uppercase}}</h2>
+    <img [src]= "myProduct.imageUrl" width="100"/>
+    <p>{{myProduct.description}}</p>
+    <p *ngIf="myProduct.size">Plusieurs tailles disponibles</p>
+    <p>{{myProduct.price | currency:'EUR'}} euros</p>
+    <p>{{myProduct.creationDate | date: 'fullDate'}}</p>
     <p>
-      <b>{{likes}}❤️</b>
+      <b [ngStyle]="{color: myProduct.likes >0?'green':'red'}">{{myProduct.likes}}❤️</b>
       <button (click)="onAddLike()">Like</button>
     </p>
   `,
   styles: ``
 })
-export class ProductCardComponent implements OnInit {
-  title: string = "";
-  description: string = "";
-  imageUrl: string = "";
-  price: number = 0;
-  likes: number = 0;
-  hasLiked: boolean = false;
-  constructor(){}
- ngOnInit() {
-    this.title= "Peluche Harry Potter",
-    this.description= "Peluche en coton bio issue du commerce équitable, taille 12cm",
-    this.imageUrl = "https://www.king-jouet.com/fstrz/r/s/images.king-jouet.com/6/gu891349_6.jpg?frz-v=3136"
-    this.price = 23
-    
- }
+export class ProductCardComponent {
+  @Input() myProduct!: Product;
+
+
 
  onAddLike() {
-     this.likes += this.hasLiked ? -1 : 1;
-     this.hasLiked = !this.hasLiked;
+   if(this.myProduct.hasLiked){
+    this.myProduct.likes--;
+   } else {
+    this.myProduct.likes++;
+   }
+   this.myProduct.hasLiked=!this.myProduct.hasLiked
  }
  }
 
