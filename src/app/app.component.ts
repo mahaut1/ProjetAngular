@@ -5,6 +5,7 @@ import { ProductCardComponent } from "./product-card/product-card.component";
 import {Product} from './models/product.models';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import localeFr from '@angular/common/locales/fr'
+import { SortByDate } from './pipes/product.pipe';
 registerLocaleData(localeFr)
 @Component({
     selector: 'app-root',
@@ -12,7 +13,7 @@ registerLocaleData(localeFr)
     template: `
     <h1>Welcome to {{title}}!</h1>
    
-    <app-product-card *ngFor="let product of products" [myProduct]="product"></app-product-card>
+    <app-product-card *ngFor="let product of (products | sortByDate:'asc')" [myProduct]="product"></app-product-card>
     <mat-slide-toggle min="1" max="100" step="1" value="50"></mat-slide-toggle>
     <router-outlet></router-outlet>
     
@@ -23,13 +24,15 @@ registerLocaleData(localeFr)
       RouterOutlet, 
       ProductCardComponent,
       MatSlideToggleModule,
+      SortByDate,
      ],
    
 
     providers:[{
       provide: LOCALE_ID,
       useValue:"fr-FR",
-    }]
+    }],
+    
 })
 
 export class AppComponent implements OnInit{
@@ -42,7 +45,7 @@ export class AppComponent implements OnInit{
       " Peluche certifié en coton bio issue du commerce équitable, taille 12cm",
       "https://media.auchan.fr/42f06d04-cd4f-4cf0-8d86-48c56c856e31_1200x1200/B2CD/",
       23,
-      new Date('2023/12/19'),
+      new Date('2023/12/17'),
       0,
       false,
       ['XL']
@@ -60,7 +63,7 @@ export class AppComponent implements OnInit{
   " Peluche certifié en coton bio issue du commerce équitable, taille 12cm",
   "https://media.auchan.fr/237b2ba0-a3b6-45b9-94a9-97d753624a12_1200x1200/B2CD/",
   23,
-  new Date('2023/12/19'),
+  new Date('2023/12/18'),
   0,
   false,
   ['XL','L']
