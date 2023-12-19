@@ -14,13 +14,13 @@ registerLocaleData(localeFr)
     standalone: true,
     template: `
     <h1>Welcome to {{title}}!</h1>
-   
-<!-- Affichage dynamique du libellé du bouton en fonction de sortOrder -->
 <button (click)="updateSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')">
   Sort {{ sortOrder === 'asc' ? 'Ascending' : 'Descending' }}
 </button>
-
-<!-- Affichage des produits en fonction de sortOrder -->
+<div>
+  Chercher : <input type="text" id="search" name="search" [(ngModel)]="search"/>
+</div>
+<div>La recherche: {{search}}</div>
 <div *ngIf="sortOrder === 'asc'">
   <app-product-card *ngFor="let product of (products | sortByDate: sortOrder)" [myProduct]="product"></app-product-card>
 </div>
@@ -55,11 +55,13 @@ export class AppComponent implements OnInit {
   sortOrder: string = 'asc';
   sortBy: string = 'name';
   filteredProducts: Product[] = [];
+  search: string="";
 
   constructor(private productsService: ProductsService) {}
 
   ngOnInit() {
     this.products=this.productsService.products
+    this.search=""
 }
 updateSortOrder(order: string) {
   this.sortOrder = order;
