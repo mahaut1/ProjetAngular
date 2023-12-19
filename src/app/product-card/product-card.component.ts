@@ -3,6 +3,7 @@ import {Product} from '../models/product.models';
 import { NgIf } from '@angular/common';
 import { NgStyle } from '@angular/common';
 import { CommonModule } from '@angular/common';
+import { ProductsService } from '../services/products.service';
 
 @Component({
   selector: 'app-product-card',
