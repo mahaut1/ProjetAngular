@@ -2,3 +2,29 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.header{
+    background-color:bisque;
+    margin-bottom: 30px;
+    text-align: center;
+}
+h1{
+    text-align: center;
+}
+.card-component{
+    display: inline-block; /* ou flex */
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 400px;
+    margin: 10px;
+}
+footer{
+    text-align: center;
+}
+.Cards{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    
+}

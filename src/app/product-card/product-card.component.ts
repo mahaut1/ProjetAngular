@@ -10,10 +10,8 @@ import { ProductsService } from '../services/products.service';
   standalone: true,
   imports: [NgIf, NgStyle, CommonModule],
   template: `
-    <p>
-      product-card works!
-    </p>
-    <h2> {{myProduct.title | uppercase}}</h2>
+   <div class="card-component">
+      <h2> {{myProduct.title | uppercase}}</h2>
     <img [src]= "myProduct.imageUrl" width="100"/>
     <p>{{myProduct.description}}</p>
     <p *ngIf="myProduct.size">Plusieurs tailles disponibles</p>
@@ -23,6 +21,8 @@ import { ProductsService } from '../services/products.service';
       <b [ngStyle]="{color: myProduct.likes >0?'green':'red'}">{{myProduct.likes}}❤️</b>
       <button (click)="onAddLike()">Like</button>
     </p>
+   </div>
+  
   `,
   styles: ``
 })
