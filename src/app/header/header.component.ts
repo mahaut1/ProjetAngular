@@ -27,9 +27,6 @@ import { ProductsListComponent } from '../products-list/products-list.component'
   template: `
      <div class="header">
   <h1>Welcome to {{ title }}!</h1>
-  <button (click)="updateSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')">
-    Sort {{ sortOrder === 'asc' ? 'Ascending' : 'Descending' }}
-  </button>
   <div>
     Chercher : <input type="text" id="search" name="search" [(ngModel)]="search" (input)="onSearchChange()" />
   </div>
@@ -51,6 +48,7 @@ export class HeaderComponent implements OnInit {
 
   onSearchChange() {
     this.searchChange.emit(this.search.trim().toLowerCase());
+    this.filteredProducts = this.productsService.getFilteredProducts(this.search, this.sortOrder);
   }
 
   constructor(private productsService: ProductsService) { }
@@ -62,5 +60,9 @@ export class HeaderComponent implements OnInit {
   updateSortOrder(order: string) {
     this.sortOrder = order;
   }
-  
+  sortByDate(products: Product[], order: string): Product[] {
+    return order === 'asc' ?
+      products.sort((a, b) => a.creationDate.getTime() - b.creationDate.getTime()) :
+      products.sort((a, b) => b.creationDate.getTime() - a.creationDate.getTime());
+  }
 }

@@ -29,6 +29,9 @@ import { ProductsService } from '../services/products.service';
     <p>
       products-list works!
     </p>
+    <button (click)="updateSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')">
+    Sort {{ sortOrder === 'asc' ? 'Ascending' : 'Descending' }}
+  </button>
     <div class="Cards">
   <div *ngIf="sortOrder === 'asc'">
   <app-product-card *ngFor="let product of (products | filterByName:search | sortByDate: sortOrder)" [myProduct]="product"></app-product-card>
