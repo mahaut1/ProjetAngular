@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProductsService } from '../services/products.service';
 import { ProductsListComponent } from '../products-list/products-list.component';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -22,11 +23,27 @@ import { ProductsListComponent } from '../products-list/products-list.component'
     FilterByName,
     CommonModule,
     FormsModule,
-    ProductsListComponent
+    ProductsListComponent,
+    RouterLink,
+    RouterLinkActive
   ],
   template: `
      <div class="header">
   <h1>Welcome to {{ title }}!</h1>
+  <nav>
+      <ul>
+        <li>
+          <a routerLink="" routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact:true}"
+          >
+          Accueil
+          </a>
+        </li>
+        <li>
+          <a routerLink="cart" routerLinkActive="active">Panier</a>
+        </li>
+      </ul>
+  </nav>
   <div>
     Chercher : <input type="text" id="search" name="search" [(ngModel)]="search" (input)="onSearchChange()" />
   </div>
