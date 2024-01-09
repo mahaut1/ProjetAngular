@@ -1,4 +1,4 @@
-import { Component, LOCALE_ID, NgModule, OnInit } from '@angular/core';
+import { Component,EventEmitter,Output, OnInit } from '@angular/core';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RouterOutlet } from '@angular/router';
@@ -26,15 +26,16 @@ import { ProductsListComponent } from '../products-list/products-list.component'
   ],
   template: `
      <div class="header">
-         <h1>Welcome to {{title}}!</h1>
-<button (click)="updateSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')">
-  Sort {{ sortOrder === 'asc' ? 'Ascending' : 'Descending' }}
-</button>
-    <div>
-      Chercher : <input type="text" id="search" name="search" [(ngModel)]="search"/>
-    </div>
-<div>La recherche: {{search}}</div> 
-    </div>
+  <h1>Welcome to {{ title }}!</h1>
+  <button (click)="updateSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')">
+    Sort {{ sortOrder === 'asc' ? 'Ascending' : 'Descending' }}
+  </button>
+  <div>
+    Chercher : <input type="text" id="search" name="search" [(ngModel)]="search" (input)="onSearchChange()" />
+  </div>
+  <div>La recherche: {{ search }}</div>
+</div>
+
   `,
   styles: ``
 })
@@ -45,6 +46,12 @@ export class HeaderComponent implements OnInit {
   sortBy: string = 'name';
   filteredProducts: Product[] = [];
   search: string = "";
+  @Output() searchChange = new EventEmitter<string>();
+  
+
+  onSearchChange() {
+    this.searchChange.emit(this.search.trim().toLowerCase());
+  }
 
   constructor(private productsService: ProductsService) { }
 

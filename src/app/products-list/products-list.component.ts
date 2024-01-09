@@ -1,4 +1,4 @@
-import { Component, LOCALE_ID, NgModule, OnInit } from '@angular/core';
+import { Component,Input, NgModule, OnInit } from '@angular/core';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RouterOutlet } from '@angular/router';
@@ -48,18 +48,25 @@ export class ProductsListComponent implements OnInit {
   sortOrder: string = 'asc';
   sortBy: string = 'name';
   filteredProducts: Product[] = [];
-  search: string = "";
+  @Input() search: string = '';
 
   constructor(private productsService: ProductsService) { }
 
   ngOnInit() {
     this.products = this.productsService.products
     this.search = ""
+    this.filterProducts();
    
   }
   updateSortOrder(order: string) {
     this.sortOrder = order;
+    this.filterProducts();
    
   }
+  filterProducts() {
+    this.filteredProducts = this.productsService.getFilteredProducts(this.search, this.sortOrder);
+  }
+  
+  
    
 }

@@ -66,6 +66,23 @@ export class ProductsService {
     )
     
     ]
+    filterByName(products: Product[], searchText: string): Product[] {
+        if (!searchText || searchText.trim() === '') {
+          return products;
+        }
+    
+        searchText = searchText.toLowerCase().trim();
+    
+        return products.filter(product =>
+          product.title.toLowerCase().includes(searchText)
+        );
+      }
+    
+      sortByDate(products: Product[], order: string): Product[] {
+        return order === 'asc' ?
+          products.sort((a, b) => a.creationDate.getTime() - b.creationDate.getTime()) :
+          products.sort((a, b) => b.creationDate.getTime() - a.creationDate.getTime());
+      }
     getItems():Product[]{
         return this.products
     }
@@ -78,4 +95,8 @@ export class ProductsService {
         }
         product.hasLiked = !product.hasLiked
     }
+    getFilteredProducts(searchText: string, sortOrder: string): Product[] {
+        let filteredProducts = this.filterByName(this.products, searchText);
+        return this.sortByDate(filteredProducts, sortOrder);
+      }
 }

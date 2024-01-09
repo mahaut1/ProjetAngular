@@ -19,8 +19,9 @@ registerLocaleData(localeFr)
   selector: 'app-root',
   standalone: true,
   template: `
-  <app-header></app-header>
-  <app-products-list></app-products-list>
+<app-header (searchChange)="onSearchChanged($event)"></app-header>
+<app-products-list [search]="searchedValue"></app-products-list>
+
   <app-footer></app-footer>
     
   `,
@@ -54,7 +55,11 @@ export class AppComponent implements OnInit  {
   search: string = "";
 
   constructor(private productsService: ProductsService) { }
+  searchedValue: string = '';
 
+  onSearchChanged(value: string) {
+    this.searchedValue = value;
+  }
   ngOnInit() {
     this.products = this.productsService.products
     this.search = ""
