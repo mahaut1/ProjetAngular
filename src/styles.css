@@ -16,6 +16,9 @@ h1{
     border-radius: 10px;
     width: 400px;
     margin: 10px;
+    padding: 10px;
+    justify-content: center;
+    text-align: center;
 }
 footer{
     text-align: center;
@@ -27,4 +30,10 @@ footer{
     justify-content: center;
     text-align: center;
     
+}
+
+#detailsProduct{
+    display:flex;
+    justify-content: center;
+    text-align: center;
 }

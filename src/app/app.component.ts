@@ -20,8 +20,7 @@ registerLocaleData(localeFr)
   standalone: true,
   template: `
 <app-header (searchChange)="onSearchChanged($event)"></app-header>
-<app-products-list [search]="searchedValue"></app-products-list>
-
+<router-outlet></router-outlet>
   <app-footer></app-footer>
     
   `,

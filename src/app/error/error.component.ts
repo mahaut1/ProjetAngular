@@ -1,18 +1,16 @@
 import { Component } from '@angular/core';
-import { Product } from '../models/product.models';
 
 @Component({
-  selector: 'app-cart',
+  selector: 'app-error',
   standalone: true,
   imports: [],
   template: `
     <p>
-      cart works!
+      error works!
     </p>
   `,
   styles: ``
 })
-export class CartComponent {
+export class ErrorComponent {
 
 }
-
