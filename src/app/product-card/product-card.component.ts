@@ -21,7 +21,7 @@ import { ProductsService } from '../services/products.service';
       <b [ngStyle]="{color: myProduct.likes >0?'green':'red'}">{{myProduct.likes}}❤️</b>
       <button (click)="onAddLike()">Like</button>
     </p>
-    <button (click)="addtoCart(myProduct)">Add to cart</button>
+    <button (click)="addtocard(myProduct)">Add to cart</button>
    </div>
   
   `,
@@ -40,19 +40,24 @@ export class ProductCardComponent {
    }
    this.myProduct.hasLiked=!this.myProduct.hasLiked
  }
- addtoCart(product:Product){
-  let panier= localStorage.getItem("panier")
-  if(panier){
-    let enP=JSON.parse(panier)
-    enP.push({id:product.id})
-    localStorage.setItem('panier', JSON.stringify(enP))
+ addtocard(product: Product) {
+  let card = localStorage.getItem("cart");
+  if (card) {
+    let enC = JSON.parse(card);
+    const existingProductIndex = enC.findIndex((item: { id: number; }) => item.id === product.id);
+    if (existingProductIndex !== -1) {
+      enC[existingProductIndex].quantity += 1;
+    } else {
+      enC.push({ id: product.id, product, quantity: 1 });
+    }
+    localStorage.setItem('cart', JSON.stringify(enC));
   } else {
-    let enP=[];
-    enP.push({id:product.id})
-    localStorage.setItem('panier',JSON.stringify(enP))
+    let enC = [{ id: product.id, product, quantity: 1 }];
+    localStorage.setItem('cart', JSON.stringify(enC));
   }
 }
- }
+}
+
 
 
 
