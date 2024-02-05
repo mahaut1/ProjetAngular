@@ -58,6 +58,7 @@ export class ProductsListComponent implements OnInit {
   ngOnInit() {
     this.products = this.productsService.products
     this.search = ""
+    console.log('Search changed in ProductsListComponent:', this.search);
     this.filterProducts();
    
   }

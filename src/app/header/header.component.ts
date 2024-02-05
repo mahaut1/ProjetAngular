@@ -65,6 +65,7 @@ export class HeaderComponent implements OnInit {
 
   onSearchChange() {
     this.searchChange.emit(this.search.trim().toLowerCase());
+    console.log('Search changed:', this.search);
     this.filteredProducts = this.productsService.getFilteredProducts(this.search, this.sortOrder);
   }
 

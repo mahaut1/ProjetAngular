@@ -30,10 +30,6 @@ registerLocaleData(localeFr)
   imports: [
     CommonModule,
     RouterOutlet,
-    MatSlideToggleModule,
-    SortByDate,
-    FormsModule,
-    FilterByName,
     ProductsListComponent,
     FooterComponent,
     HeaderComponent,
